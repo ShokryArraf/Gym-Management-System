@@ -1,4 +1,4 @@
-package com.example.Gym.Management.System.entities;
+package com.example.Gym.Management.System.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,18 +7,19 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class Trainee {
+public class TraineeDto {
     private Long id;
     private String name;
     private String email;
     private LocalDate joinDate;
     private Long activePlanId;
 
-    public Trainee(String name, String email, LocalDate joinDate, Long activePlanId, Long id) {
-        this.name = name;
+    public TraineeDto(Long id, String email, String name, LocalDate joinDate, Long activePlanId) {
+        this.id = id;
         this.email = email;
+        this.name = name;
         this.joinDate = joinDate;
         this.activePlanId = activePlanId;
-        this.id = id;
     }
+    public TraineeDto() {}
 }

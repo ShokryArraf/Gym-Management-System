@@ -1,9 +1,8 @@
 package com.example.Gym.Management.System.service;
 
-import com.example.Gym.Management.System.dto.TraineeDto;
 import com.example.Gym.Management.System.dto.WorkoutPlanCreateDto;
 import com.example.Gym.Management.System.dto.WorkoutPlanDto;
-import com.example.Gym.Management.System.exception.InvalidOperationException;
+import com.example.Gym.Management.System.exception.DuplicateResourceException;
 import com.example.Gym.Management.System.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,7 @@ public class WorkoutPlanService {
     public WorkoutPlanDto createWorkoutPlan(WorkoutPlanCreateDto dto){
         for (WorkoutPlanDto w : workouts){
             if(w.getName().equalsIgnoreCase(dto.getName())){
-                throw new InvalidOperationException("Workout Plan already exists");
+                throw new DuplicateResourceException("Workout Plan already exists");
             }
         }
         WorkoutPlanDto workout = new WorkoutPlanDto();
@@ -43,7 +42,7 @@ public class WorkoutPlanService {
                 return;
             }
         }
-        throw new InvalidOperationException("Workout Plan does not exist");
+        throw new DuplicateResourceException("Workout Plan does not exist");
     }
     public WorkoutPlanDto updateWorkoutPlan(Long id, WorkoutPlanCreateDto dto){
         for (WorkoutPlanDto w : workouts){
@@ -54,7 +53,7 @@ public class WorkoutPlanService {
                 return w;
             }
         }
-        throw new InvalidOperationException("Workout Plan does not exist");
+        throw new DuplicateResourceException("Workout Plan does not exist");
     }
 
     public WorkoutPlanDto getWorkoutPlan(Long id) {

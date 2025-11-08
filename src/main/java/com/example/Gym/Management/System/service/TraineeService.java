@@ -6,8 +6,11 @@ import com.example.Gym.Management.System.exception.DuplicateResourceException;
 import com.example.Gym.Management.System.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TraineeService {
@@ -58,5 +61,39 @@ public class TraineeService {
 
     public List<TraineeDto> getTrainers() {
         return new ArrayList<>(this.trainers);
+    }
+
+    public TraineeDto updateTraineePlan(Long Id,Long planId) {
+        for(TraineeDto t : this.trainers) {
+            if(t.getId().equals(Id)) {
+                t.setActivePlanId(planId);
+                return t;
+            }
+        }
+        throw new ResourceNotFoundException("Trainee not found to update");
+    }
+
+    public TraineeDto removeTraineePlan(Long id) {
+        for(TraineeDto t : this.trainers) {
+            if(t.getId().equals(id)) {
+                t.setActivePlanId(null);
+                return t;
+            }
+        }
+        throw new ResourceNotFoundException("Trainee not found to remove the plan");
+    }
+    public List<TraineeDto> getJoinedAfterTrainees(String date) {
+        List<TraineeDto> result = new ArrayList<>();
+        for(TraineeDto t : this.trainers) {
+            if(t.getJoinDate().isAfter(LocalDate.parse(date))) {
+                result.add(t);
+            }
+        }
+        return result;
+
+    }
+    public Map<Integer, List<TraineeDto>> getGroupedByYear() {
+        return this.trainers.stream()
+                .collect(Collectors.groupingBy(t -> t.getJoinDate().getYear()));
     }
 }

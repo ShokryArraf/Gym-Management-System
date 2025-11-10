@@ -6,6 +6,7 @@ import com.example.Gym.Management.System.exception.DuplicateResourceException;
 import com.example.Gym.Management.System.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,24 +37,25 @@ public class TraineeService {
         return trainer;
     }
 
-    public TraineeDto updateTrainer(TraineeDto dto) {
-        for(TraineeDto t : trainers){
-            if(t.getId().equals(dto.getId())){
-                t.setName(dto.getName());
-                t.setJoinDate(dto.getJoinDate());
-                t.setEmail(dto.getEmail());
-                t.setActivePlanId(dto.getActivePlanId());
-                return t;
-            }
-        }
-        return null;
+//    public TraineeDto updateTrainer(TraineeDto dto) {
+//        for(TraineeDto t : trainers){
+//            if(t.getId().equals(dto.getId())){
+//                t.setName(dto.getName());
+//                t.setJoinDate(dto.getJoinDate());
+//                t.setEmail(dto.getEmail());
+//                t.setActivePlanId(dto.getActivePlanId());
+//                return t;
+//            }
+//        }
+//        return null;
+//
+//    }
 
-    }
-    public void deleteTrainer(TraineeDto dto) {
+    public void deleteTrainer(Long id) {
         for(TraineeDto t : trainers){
-            if(t.getId().equals(dto.getId())){
+            if(t.getId().equals(id)){
                 trainers.remove(t);
-                break;
+                return;
             }
         }
         throw new ResourceNotFoundException("Trainer not found");

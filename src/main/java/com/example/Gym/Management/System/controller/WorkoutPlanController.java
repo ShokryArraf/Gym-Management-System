@@ -28,4 +28,10 @@ public class WorkoutPlanController {
         return ResponseEntity.status(HttpStatus.CREATED).body(workoutPlanService.createWorkoutPlan(dto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteWorkoutPlan(@PathVariable Long id) {
+        workoutPlanService.deleteWorkoutPlan(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

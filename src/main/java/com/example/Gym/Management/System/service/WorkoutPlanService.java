@@ -36,14 +36,9 @@ public class WorkoutPlanService {
     }
 
     public void deleteWorkoutPlan(Long id){
-        for (WorkoutPlanDto w : workouts){
-            if(w.getId().equals(id)){
-                workouts.remove(w);
-                return;
-            }
-        }
-        throw new DuplicateResourceException("Workout Plan does not exist");
+        workouts.remove(getWorkoutPlan(id));
     }
+
     public WorkoutPlanDto updateWorkoutPlan(Long id, WorkoutPlanCreateDto dto){
         for (WorkoutPlanDto w : workouts){
             if(w.getId().equals(id)){

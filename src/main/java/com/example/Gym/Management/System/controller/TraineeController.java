@@ -49,4 +49,12 @@ public class TraineeController {
     public ResponseEntity<Map<Integer, List<TraineeDto>>> getGroupedByYear() {
         return ResponseEntity.ok(traineeService.getGroupedByYear());
     }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTrainee(@PathVariable Long id) {
+        traineeService.deleteTrainer(id);
+        return ResponseEntity.noContent().build(); // 204 No Content (success)
+    }
+
 }
